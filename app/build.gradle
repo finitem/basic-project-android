@@ -8,6 +8,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.trello.victor'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
 
 repositories {
 	//For fabric
@@ -85,6 +86,9 @@ victor {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	//Kotlin
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 	//Support libraries
 	compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
