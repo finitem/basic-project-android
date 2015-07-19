@@ -7,6 +7,12 @@ apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.trello.victor'
+apply plugin: 'io.fabric'
+
+repositories {
+	//For fabric
+	maven { url 'https://maven.fabric.io/public' }
+}
 
 def cal = new GregorianCalendar()
 def versionYear = cal.get(Calendar.YEAR)
@@ -87,4 +93,7 @@ dependencies {
 
 	//Reactive
 	compile "io.reactivex:rxandroid:0.25.0"
+
+	//Fabric
+	compile('com.crashlytics.sdk.android:crashlytics:2.4.0')
 }
