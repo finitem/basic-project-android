@@ -1,4 +1,10 @@
+//Can also use this syntax, but it requires figuring out how to use the android application syntax
+// this way too, and I haven't tried to do that yet
+//plugins {
+//	id "me.tatarka.retrolambda" version "3.2.0"
+//}
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 def cal = new GregorianCalendar()
 def versionYear = cal.get(Calendar.YEAR)
@@ -17,6 +23,11 @@ def calculateVersionName = { ->
 android {
 	compileSdkVersion 22
 	buildToolsVersion rootProject.ext.buildToolsVersion
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
 
 	defaultConfig {
 		applicationId "com.merrillogic.qklzm"
