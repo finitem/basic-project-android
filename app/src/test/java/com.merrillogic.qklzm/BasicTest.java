@@ -1,5 +1,8 @@
 package com.merrillogic.qklzm;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class BasicTest {
 
 	@Before
