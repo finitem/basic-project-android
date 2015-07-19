@@ -1,5 +1,19 @@
 apply plugin: 'com.android.application'
 
+def cal = new GregorianCalendar()
+def versionYear = cal.get(Calendar.YEAR)
+def versionMonth = cal.get(Calendar.MONTH)
+def versionDay = cal.get(Calendar.DAY_OF_MONTH)
+def straightUpBuildNumber = project.hasProperty('ciBuildNum') ? ciBuildNum.toInteger : 1
+
+def calculateVersionCode = { ->
+	return straightUpBuildNumber * 100000000 + versionYear * 10000 + versionMonth * 100 + versionDay
+}
+
+def calculateVersionName = { ->
+	return "${straightUpBuildNumber}.${versionYear}.${versionMonth}.${versionDay}"
+}
+
 android {
 	compileSdkVersion 22
 	buildToolsVersion "22.0.1"
@@ -8,8 +22,8 @@ android {
 		applicationId "com.merrillogic.qklzm"
 		minSdkVersion 15
 		targetSdkVersion 22
-		versionCode 1
-		versionName "1.0"
+		versionCode calculateVersionCode()
+		versionName calculateVersionName()
 	}
 	buildTypes {
 		release {
