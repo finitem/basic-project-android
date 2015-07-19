@@ -26,8 +26,25 @@ android {
 		versionName calculateVersionName()
 	}
 	buildTypes {
+		debug {
+			applicationIdSuffix ".debug"
+		}
+		alpha {
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			applicationIdSuffix ".alpha"
+			ext.betaDistributionReleaseNotesFilePath="ci/deploy/alpha_release_notes.txt"
+			ext.betaDistributionEmailsFilePath="ci/deploy/alpha_users.txt"
+		}
+		beta {
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			applicationIdSuffix ".beta"
+			ext.betaDistributionReleaseNotesFilePath="ci/deploy/beta_release_notes.txt"
+			ext.betaDistributionEmailsFilePath="ci/deploy/beta_users.txt"
+		}
 		release {
-			minifyEnabled false
+			minifyEnabled true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
