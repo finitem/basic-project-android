@@ -16,7 +16,7 @@ def calculateVersionName = { ->
 
 android {
 	compileSdkVersion 22
-	buildToolsVersion "22.0.1"
+	buildToolsVersion rootProject.ext.buildToolsVersion
 
 	defaultConfig {
 		applicationId "com.merrillogic.qklzm"
@@ -52,5 +52,5 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:appcompat-v7:22.2.0'
+	compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
 }

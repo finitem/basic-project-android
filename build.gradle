@@ -7,6 +7,11 @@ buildscript {
 	}
 }
 
+ext.supportLibVersion = "22.2.1"
+ext.playServicesVersion = "7.5.0"
+ext.buildToolsVersion = "22.0.1"
+
+
 allprojects {
 	repositories {
 		jcenter()
