@@ -97,6 +97,15 @@ dependencies {
 	//Fabric
 	compile('com.crashlytics.sdk.android:crashlytics:2.4.0')
 
+	//Network
+//	compile 'com.squareup.retrofit:retrofit:1.9.0'
+//	compile 'com.squareup.okhttp:okhttp:2.4.0'
+//	compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+//	androidTestCompile 'com.squareup.okhttp:mockwebserver:2.4.0'
+
+	//View Injection
+//	compile 'com.jakewharton:butterknife:6.1.0'
+
 	//Testing
 	testCompile 'junit:junit:4.12'
 }
