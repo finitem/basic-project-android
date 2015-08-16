@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ci/common.sh
+source ci/shared.sh
 
 call_gradlew clean assembleRelease -PdisablePreDex
