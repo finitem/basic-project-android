@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+def versionName = '2015.8.13'
+//ACTION: Change java-library to the artifact name
+def publishedArtifactId = 'java-library'
+
+publishing {
+	publications {
+		//ACTION: Change to the artifact name
+		javalibrary(MavenPublication) {
+			groupId 'com.merrillogic'
+			artifactId publishedArtifactId
+			version versionName
+
+			//TODO: Source and Javadoc
+//            artifact javadocJar
+//            artifact sourceJar
+			artifact "$buildDir/libs/stump-base.jar"
+		}
+	}
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+	user = properties.getProperty("bintray.user")
+	key = properties.getProperty("bintray.apikey")
+	//ACTION: Change to match the name in publications
+	publications = ['javalibrary']
+	publish = false
+	pkg {
+		repo = 'maven'
+		name = publishedArtifactId
+		version {
+			name = versionName
+			vcsTag = "v" + versionName
+		}
+	}
+}
