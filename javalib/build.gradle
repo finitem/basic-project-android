@@ -17,7 +17,8 @@ publishing {
 			//TODO: Source and Javadoc
 //            artifact javadocJar
 //            artifact sourceJar
-			artifact "$buildDir/libs/stump-base.jar"
+
+			artifact "$buildDir/libs/javalib.jar"
 		}
 	}
 }
