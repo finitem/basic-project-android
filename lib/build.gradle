@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.trello.victor'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 repositories {
 	//For fabric
@@ -23,6 +25,8 @@ def calculateVersionName = { ->
 	return "${straightUpBuildNumber}.${versionYear}.${versionMonth}.${versionDay}"
 }
 
+def versionNameString = calculateVersionName()
+
 android {
 	compileSdkVersion 22
 	buildToolsVersion rootProject.ext.buildToolsVersion
@@ -36,7 +40,7 @@ android {
 		minSdkVersion 15
 		targetSdkVersion 22
 		versionCode calculateVersionCode()
-		versionName calculateVersionName()
+		versionName versionNameString
 	}
 	buildTypes {
 		release {
@@ -81,4 +85,43 @@ dependencies {
 
 	//Testing
 	testCompile 'junit:junit:4.12'
+}
+
+
+//ACTION: Change android-testing to the artifact name
+def publishedArtifactId = 'please-work'
+
+publishing {
+	publications {
+		//ACTION: Change to the artifact name
+		androidapp(MavenPublication) {
+			groupId 'com.merrillogic'
+			artifactId publishedArtifactId
+			version versionNameString
+
+			//TODO: Source and Javadoc
+//            artifact javadocJar
+//            artifact sourceJar
+			artifact "$buildDir/outputs/aar/lib-release.aar"
+		}
+	}
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+	user = properties.getProperty("bintray.user")
+	key = properties.getProperty("bintray.apikey")
+	//ACTION: Change to match the name in publications
+	publications = ['androidapp']
+	publish = false
+	pkg {
+		repo = 'maven'
+		name = publishedArtifactId
+		version {
+			name = versionNameString
+			vcsTag = "v" + versionNameString
+		}
+	}
 }
