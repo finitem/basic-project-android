@@ -8,7 +8,7 @@ apply plugin: 'com.jfrog.bintray'
 
 repositories {
 	//For fabric
-	maven { url 'https://maven.fabric.io/public' }
+//	maven { url 'https://maven.fabric.io/public' }
 }
 
 def cal = new GregorianCalendar()
