@@ -1,0 +1,66 @@
+apply plugin: 'kotlin'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+
+def cal = new GregorianCalendar()
+def versionYear = cal.get(Calendar.YEAR)
+def versionMonth = cal.get(Calendar.MONTH) + 1
+def versionDay = cal.get(Calendar.DAY_OF_MONTH)
+def straightUpBuildNumber = project.hasProperty('ciBuildNum') ? ciBuildNum.toInteger : 2
+
+def calculateVersionCode = { ->
+	return straightUpBuildNumber * 100000000 + versionYear * 10000 + versionMonth * 100 + versionDay
+}
+
+def calculateVersionName = { ->
+	return "${straightUpBuildNumber}.${versionYear}.${versionMonth}.${versionDay}"
+}
+
+def versionName = calculateVersionName()
+
+//ACTION: Change kotlin-testing to the artifact name
+def publishedArtifactId = 'kotlin-testing'
+
+compileKotlin {
+	kotlinOptions.annotations = file('annotations')
+}
+
+repositories {
+	jcenter()
+}
+
+publishing {
+	publications {
+		//ACTION: Change to the artifact name
+		kotlinlibrary(MavenPublication) {
+			groupId 'com.merrillogic'
+			artifactId publishedArtifactId
+			version versionName
+
+			//TODO: Source and Javadoc
+//            artifact javadocJar
+//            artifact sourceJar
+			artifact "$buildDir/libs/kotlinlib.jar"
+		}
+	}
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+	user = properties.getProperty("bintray.user")
+	key = properties.getProperty("bintray.apikey")
+	//ACTION: Change to match the name in publications
+	publications = ['kotlinlibrary']
+	publish = false
+	pkg {
+		repo = 'maven'
+		name = publishedArtifactId
+		version {
+			name = versionName
+			vcsTag = "v" + versionName
+		}
+	}
+}
