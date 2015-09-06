@@ -99,7 +99,10 @@ dependencies {
 //	compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
 
 	//Reactive
-	compile "io.reactivex:rxandroid:0.25.0"
+	compile "io.reactivex:rxandroid:1.0.1"
+	//Apparently rxAndroid doesn't update often, so including rxjava is good to also get bugfixes
+	// and the like. Huzzah!
+	compile 'io.reactivex:rxjava:1.0.14'
 
 	//Fabric
 	compile('com.crashlytics.sdk.android:crashlytics:2.4.0')
@@ -111,7 +114,7 @@ dependencies {
 //	androidTestCompile 'com.squareup.okhttp:mockwebserver:2.4.0'
 
 	//View Injection
-//	compile 'com.jakewharton:butterknife:6.1.0'
+//	compile 'com.jakewharton:butterknife:7.0.1'
 
 	//Testing
 	testCompile 'junit:junit:4.12'
